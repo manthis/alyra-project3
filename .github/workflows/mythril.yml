@@ -10,6 +10,8 @@ jobs:
         steps:
             -   name: Checkout repository
                 uses: actions/checkout@v2
+            -   name: Project Setup
+                run: yarn install
             -   name: Mythril Setup
                 run: pip3 install mythril
             -   name: Run Mythril
