@@ -11,6 +11,6 @@ jobs:
             -   name: Checkout repository
                 uses: actions/checkout@v2
             -   name: Mythril Setup
-                uses: pip3 install mythril
+                run: pip3 install mythril
             -   name: Run Mythril
                 run: myth analyze ./src/Voting.sol
