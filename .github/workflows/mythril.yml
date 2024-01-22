@@ -13,4 +13,4 @@ jobs:
             -   name: Mythril Setup
                 uses: pip3 install mythril
             -   name: Run Mythril
-                run: myth analyze ./s
+                run: myth analyze ./src/Voting.sol
