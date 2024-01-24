@@ -17,7 +17,7 @@ const Home = () => {
                     <ConnectButton />
                 </div>
             </div>
-            <section className="min-h-screen bg-slate-200 mt-16 flex flex-col justify-top items-center">
+            <section className="min-h-screen bg-slate-200 mt-16 flex flex-col justify-top items-center w-full fixed top-0 p-4">
                 <PrivateSection />
                 <PublicSection />
             </section>

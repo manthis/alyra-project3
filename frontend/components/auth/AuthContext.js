@@ -31,8 +31,6 @@ export const AuthProvider = ({ children }) => {
         },
     });
 
-    // We need to call owner() of the contract to check if the user is an admin (we need to memoize the result but update it from time to time probably once the user is connected
-
     useEffect(() => {
         // TODO: find if the user is an admin and/or a voter or just a guest
 
@@ -44,8 +42,6 @@ export const AuthProvider = ({ children }) => {
                 isVoter: isVoterCheckSuccess ? true : false,
             },
         };
-
-        // console.log(userData);
 
         setAuthState(userData);
     }, [isConnected]);

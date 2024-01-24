@@ -7,9 +7,12 @@
 const hre = require('hardhat');
 
 async function main() {
-    const voting = await hre.ethers.deployContract('Voting');
+    [owner, addr1, addr2] = await ethers.getSigners();
 
+    const voting = await hre.ethers.deployContract('Voting');
     await voting.waitForDeployment();
+
+    voting.connect(owner).addVoter(owner);
 
     console.log(`Voting deployed to ${voting.target}`);
 }
