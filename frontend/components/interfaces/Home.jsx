@@ -1,14 +1,9 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useState } from "react";
 import { ContractContextProvider } from "../contexts/ContractContext";
 import PrivateSection from "./private/PrivateSection";
 import PublicSection from "./public/PublicSection";
 
-// TODO create a context to store all information about contract here
-
 const Home = () => {
-    const [contractContext, setContractContext] = useState(null);
-
     return (
         <ContractContextProvider>
             <div className="flex justify-center items-center bg-slate-200 min-h-screen">
@@ -23,7 +18,7 @@ const Home = () => {
                         <ConnectButton />
                     </div>
                 </div>
-                <section className="min-h-screen mt-16 flex flex-col justify-top items-center fixed top-0 p-4 w-4/5">
+                <section className="min-h-screen flex flex-col justify-center items-center fixed top-0 p-4 w-4/5">
                     <PrivateSection />
                     <PublicSection />
                 </section>
