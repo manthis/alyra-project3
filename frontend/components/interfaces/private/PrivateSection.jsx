@@ -1,9 +1,9 @@
-import { useAuth } from "../../auth/AuthContext";
+import { useAuthContext } from "../../auth/AuthContext";
 import withAuthentication from "../../auth/withAuthentication";
 import MessageBox from "../MessageBox";
 
 const PrivateSection = () => {
-    const user = useAuth();
+    const user = useAuthContext();
 
     return (
         <div className="border-2 border-slate-600 rounded-lg m-2 w-2/4 flex flex-col justify-center items-center p-4">
