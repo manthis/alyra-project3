@@ -8,7 +8,7 @@ export default function Admin() {
                 TODO: 
 
                 - Display a button to move to next step
-                - Depending of the current step, display: 
+                - Depending of the current step, display: -> WE NEED TO HAVE THE CURRENT STEP IN THE STATE
                     - an input and a button to add a voter during step 1 - Registering Voters
                     - nothing for the other steps
              */}
