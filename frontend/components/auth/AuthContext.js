@@ -8,20 +8,9 @@ export const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useState(null);
     const { address, isConnected } = useAccount();
 
+    // We need to call owner() of the contract to check if the user is an admin (we need to memoize the result but update it from time to time probably once the user is connected
+
     useEffect(() => {
-        /*
-        // Simulons une vérification d'authentification
-        const userData = {
-            address: 'John Doe',
-            isAdmin: false,
-            isVoter: false,
-        };
-
-        setAuthState({ user: userData });
-
-        console.log(`Simulated auth...`);
-        */
-
         // TODO: find if the user is an admin and/or a voter or just a guest
 
         const userData = {

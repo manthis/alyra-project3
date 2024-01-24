@@ -6,7 +6,7 @@ const withAuthentication = (WrappedAuthSuccessComponent, WrappedAuthFailureCompo
 
     // If the user did not connect
     if (!user?.isConnected) {
-        return <WrappedAuthFailureComponent />;
+        return <WrappedAuthFailureComponent message='Please connect your wallet!' />;
     }
 
     // If the user is connected we display the wrapped component and pass the user info to it

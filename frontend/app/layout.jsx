@@ -10,7 +10,7 @@ const { chains, publicClient } = configureChains([hardhat, sepolia], [publicProv
 
 const { connectors } = getDefaultWallets({
     appName: 'Alyra - Project 3',
-    projectId: '4580d4bd774f15d13a44a49304f7fcee',
+    projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
     chains,
 });
 
