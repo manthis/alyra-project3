@@ -1,9 +1,16 @@
+import { useContractContext } from "@/components/contexts/ContractContext";
 import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
+import { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
-import VotingABI from "../../contract/VotingABI";
+import VotingABI from "../../contract/VotingAbi";
 
 const PublicSection = () => {
-    // TODO to be stored in state
+    // const contractContext = useContext(ContractContext);
+    const { contractContext, setContractContext } = useContractContext();
+    const [workflowStatusState, setWorkflowStatusState] = useState(null);
+    const [winningProposalIDState, setWinningProposalIDState] = useState(null);
+
+    // WorkflowStatus
     const { data: workflowStatus, isSuccess: isWorkflowStatusSuccess } =
         useContractRead({
             address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -11,7 +18,12 @@ const PublicSection = () => {
             functionName: "workflowStatus",
         });
 
-    // TODO to be stored in state
+    let workflowStatusText = "";
+    if (isWorkflowStatusSuccess) {
+        workflowStatusText = WorkflowStatus[workflowStatus];
+    }
+
+    // WinningProposalID
     const { data: winningProposalID, isSuccess: isWinningSuccess } =
         useContractRead({
             address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -19,22 +31,28 @@ const PublicSection = () => {
             functionName: "winningProposalID",
         });
 
-    let workflowStatusText = "";
-    if (isWorkflowStatusSuccess) {
-        workflowStatusText = WorkflowStatus[workflowStatus];
-    }
-
     let winner = 0;
     if (isWinningSuccess && winningProposalID) {
         winner = parseInt(winningProposalID, 10);
     }
+
+    // We update the state and ContractContext
+    useEffect(() => {
+        setWorkflowStatusState(workflowStatusText);
+        setWinningProposalIDState(winner);
+        setContractContext({
+            workflowStatus: workflowStatus,
+            workflowStatusText: workflowStatusText,
+            winningProposalID: winner,
+        });
+    }, [winningProposalID, workflowStatus]);
 
     return (
         <div className="border-2 border-slate-600 rounded-lg w-full flex flex-col justify-center items-center p-4">
             <h1 className="text-xl p-2 font-extrabold">Voting Information</h1>
 
             <div className="bg-blue-500 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold">
-                {workflowStatusText}
+                {workflowStatusState}
             </div>
 
             {/** TODO: If there is a winner we must look for his address using getVoter with wagmi core I think it will be more easy  (to be written using useCallback */}

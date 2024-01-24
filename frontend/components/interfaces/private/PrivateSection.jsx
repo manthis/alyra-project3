@@ -1,5 +1,5 @@
-import { useAuthContext } from "../../auth/AuthContext";
 import withAuthentication from "../../auth/withAuthentication";
+import { useAuthContext } from "../../contexts/AuthContext";
 import MessageBox from "../MessageBox";
 import Admin from "./Admin";
 import Voter from "./Voter";

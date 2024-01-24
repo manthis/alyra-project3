@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { AuthProvider } from '@/components/auth/AuthContext';
-import Home from '@/components/interfaces/Home';
+import { AuthContextProvider } from "@/components/contexts/AuthContext";
+import Home from "@/components/interfaces/Home";
 
 const App = () => {
     return (
-        <AuthProvider>
+        <AuthContextProvider>
             <Home />
-        </AuthProvider>
+        </AuthContextProvider>
     );
 };
 
