@@ -14,11 +14,7 @@ export const AuthProvider = ({ children }) => {
         functionName: 'owner',
         account: address, // We need to pass the user's address
     });
-    const {
-        data: voter,
-        isError: isVoterCheckError,
-        isSuccess: isVoterCheckSuccess,
-    } = useContractRead({
+    const { isSuccess: isVoterCheckSuccess } = useContractRead({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         abi: VotingABI,
         functionName: 'getVoter',
