@@ -3,28 +3,43 @@ import { useContractRead } from "wagmi";
 import VotingABI from "../../contract/VotingABI";
 
 const PublicSection = () => {
-    const { data: workflowStatus, isSuccess } = useContractRead({
-        address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-        abi: VotingABI,
-        functionName: "workflowStatus",
-    });
+    const { data: workflowStatus, isSuccess: isWorkflowStatusSuccess } =
+        useContractRead({
+            address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+            abi: VotingABI,
+            functionName: "workflowStatus",
+        });
+
+    const { data: winningProposalID, isSuccess: isWinningSuccess } =
+        useContractRead({
+            address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+            abi: VotingABI,
+            functionName: "winningProposalID",
+        });
 
     let workflowStatusText = "";
-    if (isSuccess) {
+    if (isWorkflowStatusSuccess) {
         workflowStatusText = WorkflowStatus[workflowStatus];
+    }
+
+    let winner = 0;
+    if (isWinningSuccess && winningProposalID) {
+        winner = parseInt(winningProposalID, 10);
     }
 
     return (
         <div className="border-2 border-slate-600 rounded-lg w-full flex flex-col justify-center items-center p-4">
             <h1 className="text-xl p-2 font-extrabold">Voting Information</h1>
-            <div className="bg-blue-500 rounded-full flex justify-center items-center py-2 px-4">
-                Workflow Status:{" "}
-                <span className="text-white ml-2 font-bold">
-                    {workflowStatusText}
-                </span>
+            <div className="bg-blue-500 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold">
+                {workflowStatusText}
             </div>
-            <br />
-            <div>Vote step / Winner / Logs</div>
+            {/** TODO: If there is a winner we must look for his address using getVoter with wagmi core I think it will be more easy */}
+            {winner !== 0 && (
+                <div className="bg-red-500 rounded-full flex justify-center items-center py-2 px-8 text-white ml-2 font-bold">
+                    Winner: {winner}
+                </div>
+            )}
+            <div>Logs</div>
         </div>
     );
 };
