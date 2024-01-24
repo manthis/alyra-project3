@@ -3,10 +3,10 @@
 import { RainbowKitProvider, getDefaultWallets } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
 import { WagmiConfig, configureChains, createConfig } from 'wagmi';
-import { hardhat } from 'wagmi/chains';
+import { hardhat, sepolia } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import './globals.css';
-const { chains, publicClient } = configureChains([hardhat], [publicProvider()]);
+const { chains, publicClient } = configureChains([hardhat, sepolia], [publicProvider()]);
 
 const { connectors } = getDefaultWallets({
     appName: 'Alyra - Project 3',
