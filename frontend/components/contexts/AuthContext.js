@@ -1,13 +1,14 @@
 // AuthContext.js
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useAccount, useContractRead } from 'wagmi';
-import VotingABI from '../contract/VotingABI';
+import VotingABI from '../contract/VotingAbi';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }) => {
     const [authState, setAuthState] = useState(null);
     const { address, isConnected } = useAccount();
+
     const { data: ownerAddress, isSuccess: isOwnerCheckSuccess } = useContractRead({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         abi: VotingABI,

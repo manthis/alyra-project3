@@ -1,5 +1,5 @@
 // withAuthentication.js
-import { useAuthContext } from './AuthContext';
+import { useAuthContext } from '../contexts/AuthContext';
 
 const withAuthentication = (WrappedAuthSuccessComponent, WrappedAuthFailureComponent) => (props) => {
     const user = useAuthContext();
