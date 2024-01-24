@@ -1,8 +1,8 @@
 // withAuthentication.js
-import { useAuth } from './AuthContext';
+import { useAuthContext } from './AuthContext';
 
 const withAuthentication = (WrappedAuthSuccessComponent, WrappedAuthFailureComponent) => (props) => {
-    const user = useAuth();
+    const user = useAuthContext();
 
     // If the user did not connect
     if (!user?.isConnected) {
