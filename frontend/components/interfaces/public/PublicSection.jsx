@@ -1,14 +1,17 @@
+import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
+import { getVoterRegistrationLogs } from "@/components/contract/ContractService";
 import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
 import { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
 import VotingABI from "../../contract/VotingAbi";
 
 const PublicSection = () => {
-    // const contractContext = useContext(ContractContext);
     const { contractContext, setContractContext } = useContractContext();
     const [workflowStatusState, setWorkflowStatusState] = useState(null);
     const [winningProposalIDState, setWinningProposalIDState] = useState(null);
+    const [logs, setLogs] = useState(null);
+    const user = useAuthContext();
 
     // WorkflowStatus
     const { data: workflowStatus, isSuccess: isWorkflowStatusSuccess } =
@@ -47,6 +50,16 @@ const PublicSection = () => {
         });
     }, [winningProposalID, workflowStatus]);
 
+    // Events Logs
+    useEffect(() => {
+        const getEventsLogsInEffect = async () => {
+            const logsBuffer = await getVoterRegistrationLogs();
+            setLogs(logsBuffer.map((log) => log.args.voterAddress));
+        };
+
+        getEventsLogsInEffect();
+    }, [logs]);
+
     return (
         <div className="border-2 border-slate-600 rounded-lg w-full flex flex-col justify-center items-center p-4">
             <h1 className="text-xl p-2 font-extrabold">Voting Information</h1>
@@ -63,7 +76,20 @@ const PublicSection = () => {
             )}
 
             {/** TODO: we must display the logs but only since the beginning of the voting session (the creation of our contrat would be ok) */}
-            <div>Logs</div>
+
+            {(user.data.isVoter || user.data.isAdmin) && (
+                <div className="w-4/5 flex flex-col mt-4 justify-center items-center ">
+                    <h2 className="pl-2 font-medium ">
+                        Events log for current step:
+                    </h2>
+                    {logs &&
+                        logs.map((log) => (
+                            <p className="bg-blue-200 rounded-lg px-2 mt-2 w-2/3">
+                                Registered voter: {log}
+                            </p>
+                        ))}
+                </div>
+            )}
         </div>
     );
 };
