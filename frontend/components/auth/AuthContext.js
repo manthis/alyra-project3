@@ -32,8 +32,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     useEffect(() => {
-        // TODO: find if the user is an admin and/or a voter or just a guest
-
         const userData = {
             isConnected: isConnected,
             data: {
