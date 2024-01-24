@@ -4,7 +4,7 @@ import PublicSection from "./public/PublicSection";
 
 const Home = () => {
     return (
-        <>
+        <div className="flex justify-center items-center bg-slate-200 min-h-screen">
             <div
                 id="header"
                 className="fixed top-0 h-16 bg-transparent w-full flex justify-between items-center border-b-2 border-slate-600"
@@ -17,11 +17,11 @@ const Home = () => {
                     <ConnectButton />
                 </div>
             </div>
-            <section className="min-h-screen bg-slate-200 mt-16 flex flex-col justify-top items-center w-full fixed top-0 p-4">
+            <section className="min-h-screen mt-16 flex flex-col justify-top items-center w-full fixed top-0 p-4 w-4/5">
                 <PrivateSection />
                 <PublicSection />
             </section>
-        </>
+        </div>
     );
 };
 
