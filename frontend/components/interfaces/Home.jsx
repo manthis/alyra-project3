@@ -2,6 +2,8 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import PrivateSection from "./private/PrivateSection";
 import PublicSection from "./public/PublicSection";
 
+// TODO create a context to store all information about contract here
+
 const Home = () => {
     return (
         <div className="flex justify-center items-center bg-slate-200 min-h-screen">

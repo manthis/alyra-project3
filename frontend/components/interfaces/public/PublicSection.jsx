@@ -3,6 +3,7 @@ import { useContractRead } from "wagmi";
 import VotingABI from "../../contract/VotingABI";
 
 const PublicSection = () => {
+    // TODO to be stored in state
     const { data: workflowStatus, isSuccess: isWorkflowStatusSuccess } =
         useContractRead({
             address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -10,6 +11,7 @@ const PublicSection = () => {
             functionName: "workflowStatus",
         });
 
+    // TODO to be stored in state
     const { data: winningProposalID, isSuccess: isWinningSuccess } =
         useContractRead({
             address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
