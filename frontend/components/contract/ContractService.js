@@ -43,6 +43,12 @@ export const startProposalsRegistering = async (_accountAddr) => {
     console.log('Proposals registration started');
 };
 
+export const startVotingSession = async (_accountAddr) => {
+    await writeToContract('endProposalsRegistering', [], _accountAddr);
+    await writeToContract('startVotingSession', [], _accountAddr);
+    console.log('Voting session started');
+};
+
 /** LOGS ============================== */
 
 export const getVoterRegistrationLogs = async () => {

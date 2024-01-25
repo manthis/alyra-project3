@@ -13,9 +13,9 @@ const LogManager = () => {
 
     useEffect(() => {
         if (contractContext.workflowStatus === 0) {
-            setLabel("Voters Registering");
+            setLabel("Voters Registered");
         } else if (contractContext.workflowStatus === 1) {
-            setLabel("Proposals Registration");
+            setLabel("Proposals Registered");
         }
     }, [contractContext.workflowStatus]);
 

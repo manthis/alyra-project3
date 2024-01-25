@@ -31,6 +31,10 @@ const WorkflowStatusWatcher = () => {
             setStyle(
                 "bg-amber-400 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold"
             );
+        } else if (workflowStatus === 3) {
+            setStyle(
+                "bg-green-500 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold"
+            );
         }
 
         setWorkflowStatusState(workflowStatusText);
