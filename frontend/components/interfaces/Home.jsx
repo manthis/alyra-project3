@@ -6,10 +6,10 @@ import PublicSection from "./public/PublicSection";
 const Home = () => {
     return (
         <ContractContextProvider>
-            <div className="flex justify-center items-center bg-slate-200 min-h-screen">
+            <div className="flex justify-center items-center bg-slate-800 min-h-screen">
                 <div
                     id="header"
-                    className="fixed top-0 h-16 bg-transparent w-full flex justify-between items-center border-b-2 border-slate-600"
+                    className="fixed top-0 h-20 bg-transparent w-full flex justify-between items-center z-20"
                 >
                     <h1 className="text-xl font-bold pl-4">
                         Alyra: Project 3 - Voting dApp
@@ -18,7 +18,7 @@ const Home = () => {
                         <ConnectButton />
                     </div>
                 </div>
-                <section className="min-h-screen flex flex-col justify-center items-center fixed top-0 p-4 w-4/5">
+                <section className="min-h-screen flex flex-col justify-center items-center fixed p-4 w-2/5 min-w-[1000px]">
                     <PublicSection />
                     <PrivateSection />
                 </section>

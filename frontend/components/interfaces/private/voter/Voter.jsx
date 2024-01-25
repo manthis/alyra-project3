@@ -9,7 +9,7 @@ export default function Voter({
     const { contractContext, setContractContext } = useContractContext();
 
     return (
-        <div className="border-2 border-slate-600 rounded-lg w-full flex flex-col justify-center items-center p-4 mb-2">
+        <div className="border-2 border-slate-500 rounded-lg w-full flex flex-col justify-center items-center p-4 mb-2 bg-slate-400">
             <h1 className="text-xl font-bold m-4">Voter section</h1>
 
             {contractContext.workflowStatus === 0 && (
