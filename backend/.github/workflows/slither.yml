@@ -18,5 +18,5 @@ jobs:
               with:
                   node-version: 18
                   fail-on: none
-                  target: "./backend/contracts/Voting.sol"
+                  target: ./backend/contracts/Voting.sol
                   slither-args: --print human-summary
