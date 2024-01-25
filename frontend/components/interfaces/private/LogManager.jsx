@@ -72,7 +72,7 @@ const LogManager = () => {
                             </li>
                         ))
                     ) : (
-                        <li>No events found</li>
+                        <li className="italic">No events found yet</li>
                     )}
                 </ul>
             </div>
