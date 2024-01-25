@@ -7,19 +7,30 @@ import Voter from "./Voter";
 
 const PrivateSection = () => {
     const user = useAuthContext();
-    const [error, setError] = useState(null);
+    const [msg, setMsg] = useState(null);
     const [color, setColor] = useState("bg-blue-500");
 
     const handleErrors = (error) => {
         setColor("bg-red-600");
-        setError(error.message);
-        setTimeout(() => setError(null), 5000);
+        setMsg(error.message);
+        setTimeout(() => setMsg(null), 5000);
+    };
+
+    const handleInfos = (info) => {
+        setColor("bg-green-600");
+        setMsg(info);
+        setTimeout(() => setMsg(null), 5000);
     };
 
     return (
         <>
-            {error && <MessageBox message={error} color={color} />}
-            {user.data.isOwner && <Admin _errorCallback={handleErrors} />}
+            {msg && <MessageBox message={msg} color={color} />}
+            {user.data.isOwner && (
+                <Admin
+                    _errorCallback={handleErrors}
+                    _infoCallback={handleInfos}
+                />
+            )}
             {user.data.isVoter && <Voter />}
         </>
     );
