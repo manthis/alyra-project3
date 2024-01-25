@@ -2,7 +2,7 @@ import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
 import { addVoter } from "@/components/contract/ContractService";
 
-export default function Admin() {
+export default function Admin({ _errorCallback }) {
     const { contractContext, setContractContext } = useContractContext();
     const user = useAuthContext();
     // console.log(user);
@@ -13,7 +13,11 @@ export default function Admin() {
 
     const registerVoter = async (formData) => {
         const address = formData.get("address");
-        await addVoter(address, user.data.address);
+        try {
+            await addVoter(address, user.data.address);
+        } catch (error) {
+            _errorCallback(error);
+        }
     };
 
     return (
@@ -51,14 +55,6 @@ export default function Admin() {
             >
                 Take vote to the next step
             </button>
-            {/**
-                TODO: 
-
-                - Display a button to move to next step
-                - Depending of the current step, display: -> WE NEED TO HAVE THE CURRENT STEP IN THE STATE
-                    - an input and a button to add a voter during step 0 - Registering Voters
-                    - nothing for the other steps
-             */}
         </div>
     );
 }

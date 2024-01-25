@@ -52,6 +52,8 @@ const PublicSection = () => {
 
     // Events Logs
     useEffect(() => {
+        // TODO: catch errors and display them in a MessageBox
+
         const getEventsLogsInEffect = async () => {
             const logsBuffer = await getVoterRegistrationLogs();
             setLogs(logsBuffer.map((log) => log.args.voterAddress));
@@ -61,36 +63,40 @@ const PublicSection = () => {
     }, [logs]);
 
     return (
-        <div className="border-2 border-slate-600 rounded-lg w-full flex flex-col justify-center items-center p-4">
-            <h1 className="text-xl p-2 font-extrabold">Voting Information</h1>
+        <>
+            <div className="border-2 border-slate-600 rounded-lg w-full flex flex-col justify-center items-center p-4">
+                <h1 className="text-xl p-2 font-extrabold">
+                    Voting Information
+                </h1>
 
-            <div className="bg-blue-500 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold">
-                {workflowStatusState}
-            </div>
-
-            {/** TODO: If there is a winner we must look for his address using getVoter with wagmi core I think it will be more easy  (to be written using useCallback */}
-            {winner !== 0 && (
-                <div className="bg-red-500 rounded-full flex justify-center items-center py-2 px-8 text-white ml-2 font-bold">
-                    Winner: {winner}
+                <div className="bg-blue-500 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold">
+                    {workflowStatusState}
                 </div>
-            )}
 
-            {/** TODO: we must display the logs but only since the beginning of the voting session (the creation of our contrat would be ok) */}
-
-            {(user.data.isVoter || user.data.isAdmin) && (
-                <div className="w-4/5 flex flex-col mt-4 justify-center items-center ">
-                    <h2 className="pl-2 font-medium ">
+                {/** TODO: If there is a winner we must look for his address using getVoter with wagmi core I think it will be more easy  (to be written using useCallback */}
+                {winner !== 0 && (
+                    <div className="bg-red-500 rounded-full flex justify-center items-center py-2 px-8 text-white ml-2 font-bold">
+                        Winner: {winner}
+                    </div>
+                )}
+            </div>
+            {(user?.data.isVoter || user?.data.isAdmin) && (
+                <div className="w-full flex flex-col mt-4 justify-center items-start border-2 border-slate-600 rounded-lg p-4 pl-24">
+                    <h1 className="text-xl py-2 font-extrabold">
                         Events log for current step:
-                    </h2>
+                    </h1>
                     {logs &&
                         logs.map((log) => (
-                            <p className="bg-blue-200 rounded-lg px-2 mt-2 w-2/3">
-                                Registered voter: {log}
+                            <p>
+                                <span className="bg-blue-500 rounded-full px-2 text-white mr-8 mb-2">
+                                    Registered voter
+                                </span>
+                                {log}
                             </p>
                         ))}
                 </div>
             )}
-        </div>
+        </>
     );
 };
 
