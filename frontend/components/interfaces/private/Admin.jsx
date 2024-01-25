@@ -2,7 +2,7 @@ import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
 import { addVoter } from "@/components/contract/ContractService";
 
-export default function Admin({ _errorCallback }) {
+export default function Admin({ _errorCallback, _infoCallback }) {
     const { contractContext, setContractContext } = useContractContext();
     const user = useAuthContext();
     // console.log(user);
@@ -15,6 +15,9 @@ export default function Admin({ _errorCallback }) {
         const address = formData.get("address");
         try {
             await addVoter(address, user.data.address);
+            _infoCallback(
+                `Voter successfully registered with address: ${address}`
+            );
         } catch (error) {
             _errorCallback(error);
         }
