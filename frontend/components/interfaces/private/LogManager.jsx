@@ -1,5 +1,8 @@
 import { useContractContext } from "@/components/contexts/ContractContext";
-import { getVoterRegistrationLogs } from "@/components/contract/ContractService";
+import {
+    getProposalRegistrationLogs,
+    getVoterRegistrationLogs,
+} from "@/components/contract/ContractService";
 import { useEffect, useState } from "react";
 
 const LogManager = () => {
@@ -19,6 +22,19 @@ const LogManager = () => {
             };
 
             getVotersRegisteringEvents();
+        } else if (contractContext.workflowStatus === 1) {
+            const getProposalRegistrationEvents = async () => {
+                try {
+                    const logsBuffer = await getProposalRegistrationLogs();
+                    setLogs(logsBuffer.map((log) => log.args.proposalId));
+                } catch (error) {
+                    console.log(error.message);
+                }
+            };
+
+            getProposalRegistrationEvents();
+        } else {
+            setLogs(null);
         }
     }, [logs]);
 
