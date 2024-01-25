@@ -17,6 +17,5 @@ jobs:
               id: slither
               with:
                 target: 'backend/'
-                slither-args: --print human-summary --print contract-summary --print inheritance  --print inheritance-graph --checklist 
                 fail-on: none
                 node-version: 20
