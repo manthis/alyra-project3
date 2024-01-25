@@ -5,6 +5,7 @@ import {
     startVotingSession,
 } from "@/components/contract/ContractService";
 import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
+import { useEffect, useState } from "react";
 import StepWithNothing from "../StepWithNothing";
 import Step1 from "./RegisteringVoters";
 
@@ -14,6 +15,18 @@ export default function Admin({
 }) {
     const { contractContext, setContractContext } = useContractContext();
     const user = useAuthContext();
+    const [buttonLabel, setButtonLabel] = useState();
+
+    useEffect(() => {
+        const workflowStep = contractContext.workflowStatus;
+        if (workflowStep === 0) {
+            setButtonLabel("Start proposals registering");
+        } else if (workflowStep === 1) {
+            setButtonLabel("Start voting session");
+        } else if (workflowStep === 3) {
+            setButtonLabel("End Vote and Get Results");
+        }
+    }, [contractContext.workflowStatus]);
 
     const moveForward = async (
         writeContractCallback,
@@ -75,7 +88,7 @@ export default function Admin({
                 onClick={() => moveVoteForward()}
                 className="bg-blue-500 rounded-xl py-2 px-4 text-white mt-6"
             >
-                Take vote to the next step
+                {buttonLabel}
             </button>
         </div>
     );
