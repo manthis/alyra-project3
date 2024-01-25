@@ -18,5 +18,5 @@ jobs:
               with:
                   node-version: 18
                   fail-on: none
-                  target: ./backend/
+                  target: "backend/"
                   slither-args: --print human-summary
