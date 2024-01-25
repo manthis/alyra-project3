@@ -5,7 +5,10 @@ import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
 import StepWithNothing from "../StepWithNothing";
 import Step1 from "./RegisteringVoters";
 
-export default function Admin({ _errorCallback, _infoCallback }) {
+export default function Admin({
+    errorCallback: _errorCallback,
+    infoCallback: _infoCallback,
+}) {
     const { contractContext, setContractContext } = useContractContext();
     const user = useAuthContext();
 
@@ -22,7 +25,7 @@ export default function Admin({ _errorCallback, _infoCallback }) {
                     }" to "${WorkflowStatus[workflowStep + 1]}"`
                 );
             } catch (error) {
-                _errorCallback(error);
+                _errorCallback(error.message);
             }
         } else {
             console.log("Unknown step!");

@@ -28,11 +28,16 @@ const PrivateSection = () => {
             {msg && <MessageBox message={msg} color={color} />}
             {user.data.isOwner && (
                 <Admin
-                    _errorCallback={handleErrors}
-                    _infoCallback={handleInfos}
+                    errorCallback={handleErrors}
+                    infoCallback={handleInfos}
                 />
             )}
-            {user.data.isVoter && <Voter />}
+            {user.data.isVoter && (
+                <Voter
+                    errorCallback={handleErrors}
+                    infoCallback={handleInfos}
+                />
+            )}
             {(user?.data.isVoter || user?.data.isAdmin) && <LogManager />}
         </>
     );
