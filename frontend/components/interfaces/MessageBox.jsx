@@ -1,8 +1,13 @@
 const MessageBox = ({ message, color = "bg-blue-600" }) => {
-    const style =
+    let style =
         color +
-        " " +
-        "text-white font-semibold w-4/5 flex flex-col justify-center items-center border-2 border-slate-600 rounded-lg mb-4 fixed top-20 z-50";
+        " text-white font-semibold flex flex-col justify-center items-center border-2 border-slate-600 rounded-lg mb-4 fixed z-50";
+
+    if (color === "bg-blue-600") {
+        style += " mb-80";
+    } else {
+        style += " top-20 w-4/5";
+    }
 
     return (
         <div className={style}>

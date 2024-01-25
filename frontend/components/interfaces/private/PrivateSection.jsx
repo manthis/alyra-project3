@@ -11,16 +11,17 @@ const PrivateSection = () => {
     const [msg, setMsg] = useState(null);
     const [color, setColor] = useState("bg-blue-500");
 
+    const msgTimeout = 3000;
     const handleErrors = (error) => {
         setColor("bg-red-600");
         setMsg(error.message);
-        setTimeout(() => setMsg(null), 5000);
+        setTimeout(() => setMsg(null), msgTimeout);
     };
 
     const handleInfos = (info) => {
         setColor("bg-green-600");
         setMsg(info);
-        setTimeout(() => setMsg(null), 5000);
+        setTimeout(() => setMsg(null), msgTimeout);
     };
 
     return (

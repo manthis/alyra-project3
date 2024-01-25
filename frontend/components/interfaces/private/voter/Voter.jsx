@@ -23,6 +23,12 @@ export default function Voter({
                 />
             )}
 
+            {contractContext.workflowStatus === 3 && (
+                <div>
+                    Must display propositions and a way to vote for one of them
+                </div>
+            )}
+
             {/**
                 TODO Voter section
 

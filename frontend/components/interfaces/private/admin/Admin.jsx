@@ -1,6 +1,9 @@
 import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
-import { startProposalsRegistering } from "@/components/contract/ContractService";
+import {
+    startProposalsRegistering,
+    startVotingSession,
+} from "@/components/contract/ContractService";
 import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
 import StepWithNothing from "../StepWithNothing";
 import Step1 from "./RegisteringVoters";
@@ -12,25 +15,44 @@ export default function Admin({
     const { contractContext, setContractContext } = useContractContext();
     const user = useAuthContext();
 
+    const moveForward = async (
+        writeContractCallback,
+        _errorCallback,
+        _infoCallback
+    ) => {
+        try {
+            await writeContractCallback(user?.data.address);
+            _infoCallback(
+                `Workflow step successfully moved from "${
+                    WorkflowStatus[workflowStep]
+                }" to "${WorkflowStatus[workflowStep + 1]}"`
+            );
+        } catch (error) {
+            _errorCallback(error.message);
+        }
+    };
+
     const moveVoteForward = async () => {
         const workflowStep = contractContext.workflowStatus;
 
         // If the step is 'Registering voters'
         if (workflowStep === 0) {
-            try {
-                await startProposalsRegistering(user?.data.address);
-                _infoCallback(
-                    `Workflow step successfully moved from "${
-                        WorkflowStatus[workflowStep]
-                    }" to "${WorkflowStatus[workflowStep + 1]}"`
-                );
-            } catch (error) {
-                _errorCallback(error.message);
-            }
+            moveForward(
+                startProposalsRegistering,
+                _errorCallback,
+                _infoCallback
+            );
+        } else if (workflowStep === 1) {
+            moveForward(startVotingSession, _errorCallback, _infoCallback);
         } else {
             console.log("Unknown step!");
         }
     };
+
+    const mustDisplayStepWithNothing =
+        contractContext.workflowStatus === 1 ||
+        contractContext.workflowStatus === 2 ||
+        contractContext.workflowStatus === 3;
 
     return (
         <div className="border-2 border-slate-600 rounded-lg flex flex-col justify-center items-center p-4 mb-4 w-full">
@@ -44,8 +66,8 @@ export default function Admin({
                 />
             )}
 
-            {/* If the step is 'Proposals Registration Started' */}
-            {contractContext.workflowStatus === 1 && (
+            {/* If the step doesn't require Admin involvment */}
+            {mustDisplayStepWithNothing && (
                 <StepWithNothing message="Nothing to do as an Admin at this vote step" />
             )}
 
