@@ -1,30 +1,10 @@
-import { useAuthContext } from "@/components/contexts/AuthContext";
-import { useContractContext } from "@/components/contexts/ContractContext";
-import { getVoterRegistrationLogs } from "@/components/contract/ContractService";
-import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
-import { useEffect, useState } from "react";
-import { useContractRead } from "wagmi";
-import VotingABI from "../../contract/VotingAbi";
+import WinnerWatcher from "./WinnerWatcher";
+import WorkflowStatusWatcher from "./WorkflowStatusWatcher";
 
 const PublicSection = () => {
+    /*
     const { contractContext, setContractContext } = useContractContext();
-    const [workflowStatusState, setWorkflowStatusState] = useState(null);
     const [winningProposalIDState, setWinningProposalIDState] = useState(null);
-    const [logs, setLogs] = useState(null);
-    const user = useAuthContext();
-
-    // WorkflowStatus
-    const { data: workflowStatus, isSuccess: isWorkflowStatusSuccess } =
-        useContractRead({
-            address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-            abi: VotingABI,
-            functionName: "workflowStatus",
-        });
-
-    let workflowStatusText = "";
-    if (isWorkflowStatusSuccess) {
-        workflowStatusText = WorkflowStatus[workflowStatus];
-    }
 
     // WinningProposalID
     const { data: winningProposalID, isSuccess: isWinningSuccess } =
@@ -41,7 +21,6 @@ const PublicSection = () => {
 
     // We update the state and ContractContext
     useEffect(() => {
-        setWorkflowStatusState(workflowStatusText);
         setWinningProposalIDState(winner);
         setContractContext({
             workflowStatus: workflowStatus,
@@ -49,53 +28,16 @@ const PublicSection = () => {
             winningProposalID: winner,
         });
     }, [winningProposalID, workflowStatus]);
-
-    // Events Logs
-    useEffect(() => {
-        // TODO: catch errors and display them in a MessageBox
-
-        const getEventsLogsInEffect = async () => {
-            const logsBuffer = await getVoterRegistrationLogs();
-            setLogs(logsBuffer.map((log) => log.args.voterAddress));
-        };
-
-        getEventsLogsInEffect();
-    }, [logs]);
+    */
 
     return (
         <>
-            <div className="border-2 border-slate-600 rounded-lg w-full flex flex-col justify-center items-center p-4">
-                <h1 className="text-xl p-2 font-extrabold">
-                    Voting Information
-                </h1>
+            <div className="border-2 border-slate-600 rounded-lg w-full flex flex-col justify-center items-center p-4 mb-4">
+                <h1 className="text-xl font-bold m-4">Voting Information</h1>
 
-                <div className="bg-blue-500 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold">
-                    {workflowStatusState}
-                </div>
-
-                {/** TODO: If there is a winner we must look for his address using getVoter with wagmi core I think it will be more easy  (to be written using useCallback */}
-                {winner !== 0 && (
-                    <div className="bg-red-500 rounded-full flex justify-center items-center py-2 px-8 text-white ml-2 font-bold">
-                        Winner: {winner}
-                    </div>
-                )}
+                <WorkflowStatusWatcher />
+                <WinnerWatcher />
             </div>
-            {(user?.data.isVoter || user?.data.isAdmin) && (
-                <div className="w-full flex flex-col mt-4 justify-center items-start border-2 border-slate-600 rounded-lg p-4 pl-24">
-                    <h1 className="text-xl py-2 font-extrabold">
-                        Events log for current step:
-                    </h1>
-                    {logs &&
-                        logs.map((log) => (
-                            <p>
-                                <span className="bg-blue-500 rounded-full px-2 text-white mr-8 mb-2">
-                                    Registered voter
-                                </span>
-                                {log}
-                            </p>
-                        ))}
-                </div>
-            )}
         </>
     );
 };
