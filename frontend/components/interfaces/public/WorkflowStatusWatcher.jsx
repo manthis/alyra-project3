@@ -7,6 +7,9 @@ import { useContractRead } from "wagmi";
 const WorkflowStatusWatcher = () => {
     const { contractContext, setContractContext } = useContractContext();
     const [workflowStatusState, setWorkflowStatusState] = useState(null);
+    const [style, setStyle] = useState(
+        "bg-blue-500 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold"
+    );
 
     // WorkflowStatus
     const { data: workflowStatus, isSuccess: isWorkflowStatusSuccess } =
@@ -24,6 +27,12 @@ const WorkflowStatusWatcher = () => {
 
     // We update the state and ContractContext
     useEffect(() => {
+        if (workflowStatus === 1) {
+            setStyle(
+                "bg-amber-400 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold"
+            );
+        }
+
         setWorkflowStatusState(workflowStatusText);
         setContractContext((prevContractContext) => ({
             ...prevContractContext,
@@ -32,11 +41,7 @@ const WorkflowStatusWatcher = () => {
         }));
     }, [workflowStatus]);
 
-    return (
-        <div className="bg-blue-500 rounded-full flex justify-center items-center py-2 px-8 text-white m-2 font-bold">
-            {workflowStatusState}
-        </div>
-    );
+    return <div className={style}>{workflowStatusState}</div>;
 };
 
 export default WorkflowStatusWatcher;

@@ -46,12 +46,10 @@ export const getVoterRegistrationLogs = async () => {
     return logs;
 };
 
-export const watchEvent = (callback) => {
+export const getProposalRegistrationLogs = async () => {
     const client = getPublicClient();
 
-    client.watchEvent({
-        address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-        event: parseAbiItem('event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus)'),
-        onLogs: (logs) => callback(logs),
-    });
+    const logs = await client.getLogs();
+
+    return logs;
 };
