@@ -1,12 +1,12 @@
 const MessageBox = ({ message, color = "bg-blue-600" }) => {
     let style =
         color +
-        " text-white font-semibold flex flex-col justify-center items-center border-2 border-slate-600 rounded-lg mb-4 fixed z-50";
+        " text-white font-semibold flex flex-col justify-center items-center mb-4 fixed z-50";
 
     if (color === "bg-blue-600") {
-        style += " mb-80";
+        style += " top-40 italic animate-bounce rounded-full";
     } else {
-        style += " top-20 w-4/5";
+        style += " top-40 w-2/5 rounded-lg max-w-[1000px]";
     }
 
     return (
