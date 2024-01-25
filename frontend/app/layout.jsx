@@ -26,7 +26,7 @@ const wagmiConfig = createConfig({
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className="text-black">
+            <body>
                 <WagmiConfig config={wagmiConfig}>
                     <RainbowKitProvider chains={chains}>
                         {children}
