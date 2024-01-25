@@ -3,8 +3,8 @@ import withAuthentication from "../../auth/withAuthentication";
 import { useAuthContext } from "../../contexts/AuthContext";
 import MessageBox from "../MessageBox";
 import LogManager from "./LogManager";
-import Voter from "./Voter";
 import Admin from "./admin/Admin";
+import Voter from "./voter/Voter";
 
 const PrivateSection = () => {
     const user = useAuthContext();

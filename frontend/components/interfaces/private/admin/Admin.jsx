@@ -2,8 +2,8 @@ import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
 import { startProposalsRegistering } from "@/components/contract/ContractService";
 import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
+import StepWithNothing from "../StepWithNothing";
 import Step1 from "./RegisteringVoters";
-import StepWithNothing from "./StepWithNothing";
 
 export default function Admin({ _errorCallback, _infoCallback }) {
     const { contractContext, setContractContext } = useContractContext();
@@ -42,7 +42,9 @@ export default function Admin({ _errorCallback, _infoCallback }) {
             )}
 
             {/* If the step is 'Proposals Registration Started' */}
-            {contractContext.workflowStatus === 1 && <StepWithNothing />}
+            {contractContext.workflowStatus === 1 && (
+                <StepWithNothing message="Nothing to do as an Admin at this vote step" />
+            )}
 
             <button
                 onClick={() => moveVoteForward()}
