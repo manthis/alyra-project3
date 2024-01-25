@@ -16,7 +16,6 @@ jobs:
               uses: crytic/slither-action@v0.3.0
               id: slither
               with:
-                  node-version: 18
                   fail-on: none
                   target: "backend/"
                   slither-args: --print human-summary
