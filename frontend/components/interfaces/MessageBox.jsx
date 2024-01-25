@@ -4,7 +4,7 @@ const MessageBox = ({ message, color = "bg-blue-600" }) => {
         " text-white font-semibold flex flex-col justify-center items-center mb-4 fixed z-50";
 
     if (color === "bg-blue-600") {
-        style += " top-40 italic animate-bounce rounded-full";
+        style += " bottom-40 italic animate-bounce rounded-full";
     } else {
         style += " top-40 w-2/5 rounded-lg max-w-[1000px]";
     }

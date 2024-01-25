@@ -68,7 +68,7 @@ export default function Admin({
         contractContext.workflowStatus === 3;
 
     return (
-        <div className="border-2 border-purple-700 rounded-lg flex flex-col justify-center items-center p-4 mb-4 w-full bg-purple-600">
+        <div className="border-2 border-emerald-600 rounded-lg flex flex-col justify-center items-center p-4 mb-4 w-full bg-emerald-500">
             <h1 className="text-xl font-bold m-4">Admin section</h1>
 
             {/* If the step is 'Registering voters' */}
