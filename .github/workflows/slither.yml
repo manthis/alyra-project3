@@ -17,6 +17,6 @@ jobs:
               id: slither
               with:
                 target: 'backend/'
-                slither-args: --print human-summary
+                slither-args: --print human-summary --print contract-summary --print inheritance  --print inheritance-graph --checklist --markdown-root https://github.com/manthis/alyra-project3/blob/$GITHUB_REF/
                 fail-on: none
                 node-version: 16
