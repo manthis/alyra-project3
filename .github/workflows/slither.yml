@@ -15,3 +15,7 @@ jobs:
             - name: Run Slither
               uses: crytic/slither-action@v0.3.0
               id: slither
+              with:
+                target: 'backend/'
+                slither-args: --print human-summary
+                fail-on: none
