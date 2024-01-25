@@ -26,6 +26,13 @@ export const addVoter = async (_voterAddr, _accountAddr) => {
     console.log(`Voter added: ${_voterAddr}`);
 };
 
+export const startProposalsRegistering = async (_accountAddr) => {
+    await writeToContract('startProposalsRegistering', [], _accountAddr);
+    console.log('Proposals registration started');
+};
+
+/** LOGS ============================== */
+
 export const getVoterRegistrationLogs = async () => {
     const client = getPublicClient();
 
@@ -39,21 +46,12 @@ export const getVoterRegistrationLogs = async () => {
     return logs;
 };
 
-// TODO test this function
-export const getAllLogs = async () => {
+export const watchEvent = (callback) => {
     const client = getPublicClient();
 
-    const logs = await client.getLogs({
+    client.watchEvent({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-        event: parseAbi([
-            'event VoterRegistered(address voterAddress)',
-            'event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus)',
-            'event ProposalRegistered(uint proposalId)',
-            'event Voted (address voter, uint proposalId)',
-        ]),
-        fromBlock: 0n,
-        toBlock: 'latest',
+        event: parseAbiItem('event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus)'),
+        onLogs: (logs) => callback(logs),
     });
-
-    return logs;
 };

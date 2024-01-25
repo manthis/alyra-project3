@@ -19,8 +19,8 @@ const Home = () => {
                     </div>
                 </div>
                 <section className="min-h-screen flex flex-col justify-center items-center fixed top-0 p-4 w-4/5">
-                    <PrivateSection />
                     <PublicSection />
+                    <PrivateSection />
                 </section>
             </div>
         </ContractContextProvider>

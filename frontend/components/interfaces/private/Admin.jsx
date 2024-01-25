@@ -1,6 +1,10 @@
 import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
-import { addVoter } from "@/components/contract/ContractService";
+import {
+    addVoter,
+    startProposalsRegistering,
+} from "@/components/contract/ContractService";
+import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
 
 export default function Admin({ _errorCallback, _infoCallback }) {
     const { contractContext, setContractContext } = useContractContext();
@@ -8,13 +12,29 @@ export default function Admin({ _errorCallback, _infoCallback }) {
     // console.log(user);
 
     const moveVoteForward = async () => {
-        console.log("click");
+        const workflowStep = contractContext.workflowStatus;
+
+        // If the step is 'Registering voters'
+        if (workflowStep === 0) {
+            try {
+                await startProposalsRegistering(user?.data.address);
+                _infoCallback(
+                    `Workflow step successfully moved from "${
+                        WorkflowStatus[workflowStep]
+                    }" to "${WorkflowStatus[workflowStep + 1]}"`
+                );
+            } catch (error) {
+                _errorCallback(error);
+            }
+        } else {
+            console.log("Unknown step!");
+        }
     };
 
     const registerVoter = async (formData) => {
         const address = formData.get("address");
         try {
-            await addVoter(address, user.data.address);
+            await addVoter(address, user?.data.address);
             _infoCallback(
                 `Voter successfully registered with address: ${address}`
             );
