@@ -1,7 +1,11 @@
 import { useContractContext } from "@/components/contexts/ContractContext";
 import StepWithNothing from "../StepWithNothing";
+import RegisteringProposals from "./RegisteringProposals";
 
-export default function Voter() {
+export default function Voter({
+    errorCallback: _errorCallback,
+    infoCallback: _infoCallback,
+}) {
     const { contractContext, setContractContext } = useContractContext();
 
     return (
@@ -12,15 +16,21 @@ export default function Voter() {
                 <StepWithNothing message="Nothing to do as a Voter at this vote step" />
             )}
 
+            {contractContext.workflowStatus === 1 && (
+                <RegisteringProposals
+                    errorCallback={_errorCallback}
+                    infoCallback={_infoCallback}
+                />
+            )}
+
             {/**
                 TODO Voter section
 
                 Depending of the current step:
                 - step 0 -> nothing
-                - step 1 -> nothing
-                - step 2 -> a text area and a button to submit proposals
-                - step 3 -> nothing
-                - step 4 -> the list of proposition to be selected and a button to vote
+                - step 1 -> a text area and a button to submit proposals
+                - step 2 -> nothing
+                - step 3 -> the list of proposition to be selected and a button to vote
                 - nothing for the other steps
              */}
         </div>

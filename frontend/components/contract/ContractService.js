@@ -3,6 +3,8 @@ import { parseAbiItem } from 'viem';
 import isValidEthereumAddress from '../utils/ethereum';
 import votingABI from './VotingAbi';
 
+/** Call to write functions of the smart contract */
+
 const writeToContract = async (_functionName, _args, _account) => {
     const { request } = await prepareWriteContract({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -19,12 +21,22 @@ const writeToContract = async (_functionName, _args, _account) => {
 
 export const addVoter = async (_voterAddr, _accountAddr) => {
     if (!isValidEthereumAddress(_voterAddr)) {
-        throw Error(`Invalid voter address: "${_voterAddr}"! Address doesn't match a valid ethereum address form!`);
+        throw new Error(`Invalid voter address: "${_voterAddr}"! Address doesn't match a valid ethereum address form!`);
     }
 
     await writeToContract('addVoter', [_voterAddr], _accountAddr);
     console.log(`Voter added: ${_voterAddr}`);
 };
+
+export const addProposal = async (_proposal, _accountAddr) => {
+    if (_proposal?.length === 0) {
+        throw new Error('You cannot register an empty proposal!');
+    }
+    await writeToContract('addProposal', [_proposal], _accountAddr);
+    console.log(`Proposal added: ${_proposal}`);
+};
+
+/** Workflow Steps */
 
 export const startProposalsRegistering = async (_accountAddr) => {
     await writeToContract('startProposalsRegistering', [], _accountAddr);
@@ -49,7 +61,12 @@ export const getVoterRegistrationLogs = async () => {
 export const getProposalRegistrationLogs = async () => {
     const client = getPublicClient();
 
-    const logs = await client.getLogs();
+    const logs = await client.getLogs({
+        address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+        event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
+        fromBlock: 0n,
+        toBlock: 'latest',
+    });
 
     return logs;
 };
