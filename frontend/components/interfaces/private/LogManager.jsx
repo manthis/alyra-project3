@@ -1,5 +1,6 @@
 import { useContractContext } from "@/components/contexts/ContractContext";
 import {
+    getOneProposal,
     getProposalRegistrationLogs,
     getVoterRegistrationLogs,
 } from "@/components/contract/ContractService";
@@ -10,6 +11,7 @@ const LogManager = () => {
     const { contractContext, setContractContext } = useContractContext();
     const [label, setLabel] = useState("");
     const [style, setStyle] = useState(null);
+    let liKey = 0; // To set a unique key to each <li>
 
     useEffect(() => {
         if (contractContext.workflowStatus === 0) {
@@ -40,7 +42,12 @@ const LogManager = () => {
                 try {
                     const logsBuffer = await getProposalRegistrationLogs();
                     setLogs(
-                        logsBuffer.map((log) => Number(log.args.proposalId))
+                        logsBuffer.map(async (log) => {
+                            const proposalId = log.args.proposalId.toString();
+                            const proposal = await getOneProposal(proposalId);
+
+                            return proposal;
+                        })
                     );
                     setStyle(
                         "bg-amber-400 rounded-full px-2 py-1 text-white mr-6"
@@ -66,9 +73,9 @@ const LogManager = () => {
                 <ul className="my-4 flex flex-col justify-center items-start">
                     {logs && logs?.length > 0 ? (
                         logs.map((log) => (
-                            <li key={log} className="mb-2 ">
+                            <li key={++liKey} className="mb-2 ">
                                 <span className={style}>{label}</span>
-                                <span className="px-2 py-1">[{log}]</span>
+                                <span className="px-2 py-1">[ {log} ]</span>
                             </li>
                         ))
                     ) : (

@@ -36,6 +36,26 @@ export const addProposal = async (_proposal, _accountAddr) => {
     console.log(`Proposal added: ${_proposal}`);
 };
 
+export const getOneProposal = async (_id) => {
+    const client = getPublicClient();
+    const proposal = await client.readContract({
+        address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+        abi: votingABI,
+        functionName: 'getOneProposal',
+        args: [_id],
+    });
+    return proposal?.description;
+};
+
+export const setVote = async (_id) => {
+    if (!_id) {
+        throw new Error('You must vote for a proposition!');
+    }
+
+    await writeToContract('setVote', [_id]);
+    console.log(`Voted for: ${_id}`);
+};
+
 /** Workflow Steps */
 
 export const startProposalsRegistering = async (_accountAddr) => {
@@ -66,6 +86,7 @@ export const getVoterRegistrationLogs = async () => {
 
 export const getProposalRegistrationLogs = async () => {
     const client = getPublicClient();
+    let proposals = [];
 
     const logs = await client.getLogs({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,

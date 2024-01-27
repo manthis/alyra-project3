@@ -1,6 +1,7 @@
 import { useContractContext } from "@/components/contexts/ContractContext";
 import StepWithNothing from "../StepWithNothing";
 import RegisteringProposals from "./RegisteringProposals";
+import Vote from "./Vote";
 
 export default function Voter({
     errorCallback: _errorCallback,
@@ -25,20 +26,12 @@ export default function Voter({
 
             {contractContext.workflowStatus === 3 && (
                 <div>
-                    Must display propositions and a way to vote for one of them
+                    <Vote
+                        infoCallback={_infoCallback}
+                        errorCallback={_errorCallback}
+                    />
                 </div>
             )}
-
-            {/**
-                TODO Voter section
-
-                Depending of the current step:
-                - step 0 -> nothing
-                - step 1 -> a text area and a button to submit proposals
-                - step 2 -> nothing
-                - step 3 -> the list of proposition to be selected and a button to vote
-                - nothing for the other steps
-             */}
         </div>
     );
 }
