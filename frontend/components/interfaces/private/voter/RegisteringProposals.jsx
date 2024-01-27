@@ -23,7 +23,7 @@ const RegisteringProposals = ({ errorCallback, infoCallback }) => {
                 className="w-full flex justify-between"
             >
                 <input
-                    className="border-1 border-slate-400 rounded-xl py-2 px-4 w-full mr-4"
+                    className="border-1 border-slate-400 rounded-xl py-2 px-4 w-full mr-4 text-black"
                     type="text"
                     placeholder="My proposal to be voted..."
                     name="proposal"
