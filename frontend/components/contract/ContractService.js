@@ -86,7 +86,6 @@ export const getVoterRegistrationLogs = async () => {
 
 export const getProposalRegistrationLogs = async () => {
     const client = getPublicClient();
-    let proposals = [];
 
     const logs = await client.getLogs({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
@@ -96,4 +95,17 @@ export const getProposalRegistrationLogs = async () => {
     });
 
     return logs;
+};
+
+export const getVoteLogs = async () => {
+    const client = getPublicClient();
+
+    const votesEvents = await client.getLogs({
+        address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+        event: parseAbiItem('event Voted(address voter, uint proposalId)'),
+        fromBlock: 0n,
+        toBlock: 'latest',
+    });
+
+    return votesEvents;
 };

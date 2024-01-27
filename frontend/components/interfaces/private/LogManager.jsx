@@ -2,6 +2,7 @@ import { useContractContext } from "@/components/contexts/ContractContext";
 import {
     getOneProposal,
     getProposalRegistrationLogs,
+    getVoteLogs,
     getVoterRegistrationLogs,
 } from "@/components/contract/ContractService";
 import { useEffect, useState } from "react";
@@ -18,6 +19,8 @@ const LogManager = () => {
             setLabel("Voters Registered");
         } else if (contractContext.workflowStatus === 1) {
             setLabel("Proposals Registered");
+        } else if (contractContext.workflowStatus === 3) {
+            setLabel("Voted");
         }
     }, [contractContext.workflowStatus]);
 
@@ -58,6 +61,25 @@ const LogManager = () => {
             };
 
             getProposalRegistrationEvents();
+        } else if (contractContext.workflowStatus === 3) {
+            const getVotesEvents = async () => {
+                try {
+                    const events = await getVoteLogs();
+                    setLogs(
+                        events.map(
+                            (event) =>
+                                event.args.voter + "; " + event.args.proposalId
+                        )
+                    );
+                    setStyle(
+                        "bg-green-600 rounded-full px-2 py-1 text-white mr-6"
+                    );
+                } catch (error) {
+                    console.log(error.message);
+                }
+            };
+
+            getVotesEvents();
         } else {
             setLogs(null);
         }
