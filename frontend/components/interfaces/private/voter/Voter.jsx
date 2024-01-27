@@ -14,7 +14,7 @@ export default function Voter({
             <h1 className="text-xl font-bold m-4">Voter section</h1>
 
             {contractContext.workflowStatus === 0 && (
-                <StepWithNothing message="Nothing to do as a Voter at this vote step" />
+                <StepWithNothing message="Nothing to do as a Voter at this step of the vote" />
             )}
 
             {contractContext.workflowStatus === 1 && (

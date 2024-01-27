@@ -1,11 +1,12 @@
 import { useContractContext } from "@/components/contexts/ContractContext";
+import { getOneProposal } from "@/components/contract/ContractService";
 import VotingABI from "@/components/contract/VotingAbi";
 import { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
 
 const WinnerWatcher = () => {
     const { contractContext, setContractContext } = useContractContext();
-    const [winningProposalIDState, setWinningProposalIDState] = useState(null);
+    const [winningProposal, setWinningProposal] = useState(null);
 
     // WinningProposalID
     const { data: winningProposalID, isSuccess: isWinningSuccess } =
@@ -16,27 +17,34 @@ const WinnerWatcher = () => {
             watch: true,
         });
 
-    let winner = 0;
-    if (isWinningSuccess && winningProposalID) {
-        winner = parseInt(winningProposalID, 10);
-    }
-
     // We update the state and ContractContext
     useEffect(() => {
-        setWinningProposalIDState(winner);
-        setContractContext((prevContractContext) => ({
-            ...prevContractContext,
-            winningProposalID: winner,
-        }));
-    }, [winningProposalID]);
+        const getResults = async () => {
+            try {
+                const winningProposalNumber = Number(winningProposalID);
+                const description = await getOneProposal(winningProposalNumber);
+                setWinningProposal({
+                    id: winningProposalNumber,
+                    desc: description,
+                });
+                setContractContext((prevContractContext) => ({
+                    ...prevContractContext,
+                    winningProposalID: winningProposalNumber,
+                }));
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        getResults();
+    }, [winningProposal]);
 
     // TODO If there is a winner we must look for his address using getVoter with wagmi core I think it will be more easy  (to be written using useCallback
-
     return (
         <>
-            {winner !== 0 && (
-                <div className="bg-red-500 rounded-full flex justify-center items-center py-2 px-8 text-white ml-2 font-bold">
-                    Winner: {winner}
+            {winningProposal !== null && (
+                <div className="bg-emerald-500 rounded-full flex justify-center items-center py-2 px-8 text-white ml-2 font-bold fixed top-60 z-50">
+                    Winning proposal: {winningProposal.desc} with ID:{" "}
+                    {winningProposal.id}
                 </div>
             )}
         </>
