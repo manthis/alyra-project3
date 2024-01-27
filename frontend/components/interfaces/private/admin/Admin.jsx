@@ -1,6 +1,7 @@
 import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
 import {
+    endVotingSessionAndTallyVotes,
     startProposalsRegistering,
     startVotingSession,
 } from "@/components/contract/ContractService";
@@ -48,7 +49,6 @@ export default function Admin({
     const moveVoteForward = async () => {
         const workflowStep = contractContext.workflowStatus;
 
-        // If the step is 'Registering voters'
         if (workflowStep === 0) {
             moveForward(
                 startProposalsRegistering,
@@ -57,6 +57,12 @@ export default function Admin({
             );
         } else if (workflowStep === 1) {
             moveForward(startVotingSession, _errorCallback, _infoCallback);
+        } else if (workflowStep === 3) {
+            moveForward(
+                endVotingSessionAndTallyVotes,
+                _errorCallback,
+                _infoCallback
+            );
         } else {
             console.log("Unknown step!");
         }

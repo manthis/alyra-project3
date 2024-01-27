@@ -22,9 +22,8 @@ const Vote = ({
         } catch (error) {
             if (error.message.includes("You have already voted")) {
                 setHasVoted(true);
-            } else {
-                _errorCallback(error);
             }
+            _errorCallback(error);
         }
     };
 
@@ -67,6 +66,7 @@ const Vote = ({
                         <br />
                     </div>
                 ))}
+
                 <button
                     key="btnVote"
                     type="submit"
