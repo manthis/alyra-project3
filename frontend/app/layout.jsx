@@ -6,6 +6,7 @@ import { WagmiConfig, configureChains, createConfig } from "wagmi";
 import { hardhat, sepolia } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import "./globals.css";
+
 const { chains, publicClient } = configureChains(
     [hardhat, sepolia],
     [publicProvider()]
