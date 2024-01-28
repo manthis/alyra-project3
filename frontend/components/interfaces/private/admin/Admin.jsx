@@ -33,7 +33,8 @@ export default function Admin({
     const moveForward = async (
         writeContractCallback,
         _errorCallback,
-        _infoCallback
+        _infoCallback,
+        workflowStep
     ) => {
         try {
             await writeContractCallback(user?.data.address);
@@ -54,12 +55,18 @@ export default function Admin({
             moveForward(
                 startProposalsRegistering,
                 _errorCallback,
-                _infoCallback
+                _infoCallback,
+                workflowStep
             );
         } else if (workflowStep === 1) {
             try {
                 await getOneProposal(1, user?.data.address);
-                moveForward(startVotingSession, _errorCallback, _infoCallback);
+                moveForward(
+                    startVotingSession,
+                    _errorCallback,
+                    _infoCallback,
+                    workflowStep
+                );
             } catch (error) {
                 if (error.message.includes("Array index is out of bounds")) {
                     console.log("YALA");
@@ -76,7 +83,8 @@ export default function Admin({
             moveForward(
                 endVotingSessionAndTallyVotes,
                 _errorCallback,
-                _infoCallback
+                _infoCallback,
+                workflowStep
             );
         } else {
             console.log("Unknown step!");
