@@ -1,4 +1,3 @@
-// AuthContext.js
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useAccount, useContractRead } from 'wagmi';
 import VotingABI from '../contract/VotingAbi';
@@ -9,20 +8,20 @@ export const AuthContextProvider = ({ children }) => {
     const [authState, setAuthState] = useState(null);
     const { address, isConnected } = useAccount();
 
-    // If we have no user connected it is not useful to continue (and this way we prevent errors)
-    if (!address) return <AuthContext.Provider value={authState}>{children}</AuthContext.Provider>;
-
-    const { data: ownerAddress, isSuccess: isOwnerCheckSuccess } = useContractRead({
+    const ownerAddressData = useContractRead({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         abi: VotingABI,
         functionName: 'owner',
-        account: address, // We need to pass the user's address
+        account: address,
+        enabled: !!address, // enable the hook only if address is not null (we convert it to a boolean using !!)
     });
-    const { isSuccess: isVoterCheckSuccess } = useContractRead({
+
+    const voterCheckData = useContractRead({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         abi: VotingABI,
         functionName: 'getVoter',
-        account: address, // We need to pass the user's address
+        account: address,
+        enabled: !!address, // enable the hook only if address is not null (we convert it to a boolean using !!)
         args: [address],
         onError(error) {
             if (!error.message.includes("You're not a voter")) {
@@ -31,18 +30,26 @@ export const AuthContextProvider = ({ children }) => {
         },
     });
 
-    useEffect(() => {
-        const userData = {
-            isConnected: isConnected,
-            data: {
-                address: address,
-                isOwner: isOwnerCheckSuccess && ownerAddress === address ? true : false,
-                isVoter: isVoterCheckSuccess ? true : false,
-            },
-        };
+    const { data: ownerAddress, isSuccess: isOwnerCheckSuccess } = ownerAddressData;
+    const { isSuccess: isVoterCheckSuccess } = voterCheckData;
 
-        setAuthState(userData);
-    }, [isConnected]);
+    useEffect(() => {
+        if (address) {
+            const userData = {
+                isConnected: isConnected,
+                data: {
+                    address: address,
+                    isOwner: isOwnerCheckSuccess && ownerAddress === address ? true : false,
+                    isVoter: isVoterCheckSuccess ? true : false,
+                },
+            };
+
+            setAuthState(userData);
+        } else {
+            // Gérer le cas où address est null
+            setAuthState(null);
+        }
+    }, [isConnected, address, isOwnerCheckSuccess, ownerAddress, isVoterCheckSuccess]);
 
     return <AuthContext.Provider value={authState}>{children}</AuthContext.Provider>;
 };
