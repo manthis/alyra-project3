@@ -46,7 +46,7 @@ const LogManager = () => {
                     const logsBuffer = await getProposalRegistrationLogs();
                     setLogs(
                         logsBuffer.map(async (log) => {
-                            const proposalId = log.args.proposalId.toString();
+                            const proposalId = Number(log.args.proposalId);
                             const proposal = await getOneProposal(proposalId);
 
                             return proposal;
@@ -64,12 +64,20 @@ const LogManager = () => {
         } else if (contractContext.workflowStatus === 3) {
             const getVotesEvents = async () => {
                 try {
-                    const events = await getVoteLogs();
+                    const logsBuffer = await getVoteLogs();
+                    console.log(logsBuffer);
                     setLogs(
-                        events.map(
-                            (event) =>
-                                event.args.voter + "; " + event.args.proposalId
-                        )
+                        logsBuffer.map(async (log) => {
+                            const proposalId = Number(log.args.proposalId);
+                            const proposal = await getOneProposal(proposalId);
+
+                            return (
+                                log.args.voter +
+                                ' voted for "' +
+                                proposal +
+                                '".'
+                            );
+                        })
                     );
                     setStyle(
                         "bg-green-600 rounded-full px-2 py-1 text-white mr-6"
