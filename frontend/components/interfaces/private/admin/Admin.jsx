@@ -20,7 +20,7 @@ export default function Admin({
     const [buttonLabel, setButtonLabel] = useState();
 
     useEffect(() => {
-        const workflowStep = contractContext.workflowStatus;
+        const workflowStep = contractContext?.workflowStatus;
         if (workflowStep === 0) {
             setButtonLabel("Start proposals registering");
         } else if (workflowStep === 1) {
@@ -28,7 +28,7 @@ export default function Admin({
         } else if (workflowStep === 3) {
             setButtonLabel("End Vote and Get Results");
         }
-    }, [contractContext.workflowStatus]);
+    }, [contractContext?.workflowStatus]);
 
     const moveForward = async (
         writeContractCallback,
@@ -96,7 +96,7 @@ export default function Admin({
             <h1 className="text-xl font-bold m-4">Admin section</h1>
 
             {/* If the step is 'Registering voters' */}
-            {contractContext.workflowStatus === 0 ? (
+            {contractContext?.workflowStatus === 0 ? (
                 <Step1
                     _errorCallback={_errorCallback}
                     _infoCallback={_infoCallback}

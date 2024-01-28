@@ -13,20 +13,20 @@ export default function Voter({
         <div className="border-2 border-slate-500 rounded-lg w-full flex flex-col justify-center items-center p-4 mb-2 bg-slate-400">
             <h1 className="text-xl font-bold m-4">Voter section</h1>
 
-            {(contractContext.workflowStatus === 0 ||
-                contractContext.workflowStatus === 2 ||
-                contractContext.workflowStatus === 4) && (
+            {(contractContext?.workflowStatus === 0 ||
+                contractContext?.workflowStatus === 2 ||
+                contractContext?.workflowStatus === 4) && (
                 <StepWithNothing message="Nothing to do as a Voter at this step of the vote" />
             )}
 
-            {contractContext.workflowStatus === 1 && (
+            {contractContext?.workflowStatus === 1 && (
                 <RegisteringProposals
                     errorCallback={_errorCallback}
                     infoCallback={_infoCallback}
                 />
             )}
 
-            {contractContext.workflowStatus === 3 && (
+            {contractContext?.workflowStatus === 3 && (
                 <div>
                     <Vote
                         infoCallback={_infoCallback}

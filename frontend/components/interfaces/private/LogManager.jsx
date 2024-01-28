@@ -17,18 +17,18 @@ const LogManager = () => {
     let liKey = 0; // To set a unique key to each <li>
 
     useEffect(() => {
-        if (contractContext.workflowStatus === 0) {
+        if (contractContext?.workflowStatus === 0) {
             setLabel("Voters Registered");
-        } else if (contractContext.workflowStatus === 1) {
+        } else if (contractContext?.workflowStatus === 1) {
             setLabel("Proposals Registered");
-        } else if (contractContext.workflowStatus === 3) {
+        } else if (contractContext?.workflowStatus === 3) {
             setLabel("Voted");
         }
-    }, [contractContext.workflowStatus]);
+    }, [contractContext?.workflowStatus]);
 
     // Events Logs
     useEffect(() => {
-        if (contractContext.workflowStatus === 0) {
+        if (contractContext?.workflowStatus === 0) {
             const getVotersRegisteringEvents = async () => {
                 try {
                     const logsBuffer = await getVoterRegistrationLogs();
@@ -42,7 +42,7 @@ const LogManager = () => {
             };
 
             getVotersRegisteringEvents();
-        } else if (contractContext.workflowStatus === 1) {
+        } else if (contractContext?.workflowStatus === 1) {
             const getProposalRegistrationEvents = async () => {
                 try {
                     const logsBuffer = await getProposalRegistrationLogs();
@@ -66,7 +66,7 @@ const LogManager = () => {
             };
 
             getProposalRegistrationEvents();
-        } else if (contractContext.workflowStatus === 3) {
+        } else if (contractContext?.workflowStatus === 3) {
             const getVotesEvents = async () => {
                 try {
                     const logsBuffer = await getVoteLogs();
