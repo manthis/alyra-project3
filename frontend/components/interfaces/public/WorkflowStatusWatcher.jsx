@@ -1,4 +1,3 @@
-import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
 import VotingABI from "@/components/contract/VotingAbi";
 import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
@@ -6,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
 
 const WorkflowStatusWatcher = () => {
-    const user = useAuthContext();
     const { contractContext, setContractContext } = useContractContext();
     const [workflowStatusState, setWorkflowStatusState] = useState(null);
     const [style, setStyle] = useState(
@@ -19,7 +17,6 @@ const WorkflowStatusWatcher = () => {
             address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
             abi: VotingABI,
             functionName: "workflowStatus",
-            account: user?.data.address,
             watch: true,
         });
 
