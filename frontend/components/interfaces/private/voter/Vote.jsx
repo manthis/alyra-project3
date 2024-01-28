@@ -16,7 +16,7 @@ const Vote = ({
         const choice = formData.get("vote");
 
         try {
-            await setVote(choice + 1); // We add 1, indeed because of the GENESIS proposition all index are wrong when using logs
+            await setVote(Number(choice) + 1); // We add 1, indeed because of the GENESIS proposition all index are wrong when using logs
             setHasVoted(true);
             _infoCallback(`Voter successfully voted for proposal: ${choice}`);
         } catch (error) {
