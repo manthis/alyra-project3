@@ -1,0 +1,8 @@
+frontend/.env.production
+frontend/node_modules
+backend/artifacts
+backend/cache
+backend/node_modules
+backend/.env
+frontend/.next
+frontend/.env.local
