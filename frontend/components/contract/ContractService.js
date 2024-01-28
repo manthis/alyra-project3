@@ -83,7 +83,7 @@ export const getVoterRegistrationLogs = async () => {
     const logs = await client.getLogs({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         event: parseAbiItem('event VoterRegistered(address voterAddress)'),
-        fromBlock: process.env.NEXT_PUBLIC_BLOCK_START || 0n,
+        fromBlock: BigInt(process.env.NEXT_PUBLIC_BLOCK_START) || 0n,
         toBlock: 'latest',
     });
 
@@ -96,7 +96,7 @@ export const getProposalRegistrationLogs = async () => {
     const logs = await client.getLogs({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         event: parseAbiItem('event ProposalRegistered(uint proposalId)'),
-        fromBlock: process.env.NEXT_PUBLIC_BLOCK_START || 0n,
+        fromBlock: BigInt(process.env.NEXT_PUBLIC_BLOCK_START) || 0n,
         toBlock: 'latest',
     });
 
@@ -109,7 +109,7 @@ export const getVoteLogs = async () => {
     const votesEvents = await client.getLogs({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         event: parseAbiItem('event Voted(address voter, uint proposalId)'),
-        fromBlock: process.env.NEXT_PUBLIC_BLOCK_START || 0n,
+        fromBlock: BigInt(process.env.NEXT_PUBLIC_BLOCK_START) || 0n,
         toBlock: 'latest',
     });
 
