@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
 import {
     getOneProposal,
@@ -8,8 +9,9 @@ import {
 import { useEffect, useState } from "react";
 
 const LogManager = () => {
-    const [logs, setLogs] = useState(null);
     const { contractContext, setContractContext } = useContractContext();
+    const user = useAuthContext();
+    const [logs, setLogs] = useState(null);
     const [label, setLabel] = useState("");
     const [style, setStyle] = useState(null);
     let liKey = 0; // To set a unique key to each <li>
@@ -47,7 +49,10 @@ const LogManager = () => {
                     setLogs(
                         logsBuffer.map(async (log) => {
                             const proposalId = Number(log.args.proposalId);
-                            const proposal = await getOneProposal(proposalId);
+                            const proposal = await getOneProposal(
+                                proposalId,
+                                user?.data.address
+                            );
 
                             return proposal;
                         })
@@ -68,7 +73,10 @@ const LogManager = () => {
                     setLogs(
                         logsBuffer.map(async (log) => {
                             const proposalId = Number(log.args.proposalId);
-                            const proposal = await getOneProposal(proposalId);
+                            const proposal = await getOneProposal(
+                                proposalId,
+                                user?.data.address
+                            );
 
                             return (
                                 log.args.voter +

@@ -1,4 +1,4 @@
-import { getPublicClient, prepareWriteContract, waitForTransaction, writeContract } from '@wagmi/core';
+import { getPublicClient, prepareWriteContract, readContract, waitForTransaction, writeContract } from '@wagmi/core';
 import { parseAbiItem } from 'viem';
 import isValidEthereumAddress from '../utils/ethereum';
 import VotingABI from './VotingAbi';
@@ -36,13 +36,13 @@ export const addProposal = async (_proposal, _accountAddr) => {
     console.log(`Proposal added: ${_proposal}`);
 };
 
-export const getOneProposal = async (_id) => {
-    const client = getPublicClient();
-    const proposal = await client.readContract({
+export const getOneProposal = async (_id, _account) => {
+    const proposal = await readContract({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         abi: VotingABI,
         functionName: 'getOneProposal',
         args: [_id],
+        account: _account,
     });
     return proposal?.description;
 };
