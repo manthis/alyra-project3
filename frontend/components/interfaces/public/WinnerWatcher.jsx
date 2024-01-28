@@ -16,7 +16,6 @@ const WinnerWatcher = () => {
             address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
             abi: VotingABI,
             functionName: "winningProposalID",
-            account: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
             watch: true,
         });
 
