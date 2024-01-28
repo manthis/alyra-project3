@@ -1,8 +1,10 @@
 import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
 import {
+    endVotingSessionAndTallyVotes,
     getOneProposal,
     startProposalsRegistering,
+    startVotingSession,
 } from "@/components/contract/ContractService";
 import { WorkflowStatus } from "@/components/contract/WorkflowStatuses";
 import { useEffect, useState } from "react";
