@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/components/contexts/AuthContext";
 import {
     getOneProposal,
     getProposalRegistrationLogs,
@@ -9,6 +10,7 @@ const Vote = ({
     errorCallback: _errorCallback,
     infoCallback: _infoCallback,
 }) => {
+    const user = useAuthContext();
     const [hasVoted, setHasVoted] = useState(false);
     const [proposals, setProposals] = useState([]);
 
@@ -32,7 +34,10 @@ const Vote = ({
             const logs = await getProposalRegistrationLogs();
 
             let propositions = logs.map(async (log) => {
-                return await getOneProposal(Number(log.args.proposalId));
+                return await getOneProposal(
+                    Number(log.args.proposalId),
+                    user?.data.address
+                );
             });
 
             setProposals(await Promise.all(propositions));

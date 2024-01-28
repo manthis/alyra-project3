@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/components/contexts/AuthContext";
 import { useContractContext } from "@/components/contexts/ContractContext";
 import { getOneProposal } from "@/components/contract/ContractService";
 import VotingABI from "@/components/contract/VotingAbi";
@@ -7,6 +8,7 @@ import { useContractRead } from "wagmi";
 const WinnerWatcher = () => {
     const { contractContext, setContractContext } = useContractContext();
     const [winningProposal, setWinningProposal] = useState(null);
+    const user = useAuthContext();
 
     // WinningProposalID
     const { data: winningProposalID, isSuccess: isWinningSuccess } =
@@ -22,7 +24,10 @@ const WinnerWatcher = () => {
         const getResults = async () => {
             try {
                 const winningProposalNumber = Number(winningProposalID);
-                const description = await getOneProposal(winningProposalNumber);
+                const description = await getOneProposal(
+                    winningProposalNumber,
+                    user?.data.address
+                );
                 setWinningProposal({
                     id: winningProposalNumber,
                     desc: description,
