@@ -65,7 +65,6 @@ const LogManager = () => {
             const getVotesEvents = async () => {
                 try {
                     const logsBuffer = await getVoteLogs();
-                    console.log(logsBuffer);
                     setLogs(
                         logsBuffer.map(async (log) => {
                             const proposalId = Number(log.args.proposalId);
@@ -91,7 +90,7 @@ const LogManager = () => {
         } else {
             setLogs(null);
         }
-    }, [logs]);
+    });
 
     return (
         <>

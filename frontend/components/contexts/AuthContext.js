@@ -9,6 +9,9 @@ export const AuthContextProvider = ({ children }) => {
     const [authState, setAuthState] = useState(null);
     const { address, isConnected } = useAccount();
 
+    // If we have no user connected it is not useful to continue (and this way we prevent errors)
+    if (!address) return <AuthContext.Provider value={authState}>{children}</AuthContext.Provider>;
+
     const { data: ownerAddress, isSuccess: isOwnerCheckSuccess } = useContractRead({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
         abi: VotingABI,
