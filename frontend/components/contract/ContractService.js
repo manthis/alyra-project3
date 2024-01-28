@@ -1,14 +1,14 @@
 import { getPublicClient, prepareWriteContract, waitForTransaction, writeContract } from '@wagmi/core';
 import { parseAbiItem } from 'viem';
 import isValidEthereumAddress from '../utils/ethereum';
-import votingABI from './VotingAbi';
+import VotingABI from './VotingAbi';
 
 /** Call to write functions of the smart contract */
 
 const writeToContract = async (_functionName, _args, _account) => {
     const { request } = await prepareWriteContract({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-        abi: votingABI,
+        abi: VotingABI,
         functionName: _functionName,
         args: _args,
         account: _account,
@@ -40,7 +40,7 @@ export const getOneProposal = async (_id) => {
     const client = getPublicClient();
     const proposal = await client.readContract({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
-        abi: votingABI,
+        abi: VotingABI,
         functionName: 'getOneProposal',
         args: [_id],
     });
