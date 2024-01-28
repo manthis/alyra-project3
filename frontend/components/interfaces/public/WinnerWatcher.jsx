@@ -36,15 +36,13 @@ const WinnerWatcher = () => {
             }
         };
         getResults();
-    }, [winningProposal]);
+    }, [winningProposalID]);
 
-    // TODO If there is a winner we must look for his address using getVoter with wagmi core I think it will be more easy  (to be written using useCallback
     return (
         <>
-            {winningProposal !== null && (
-                <div className="bg-emerald-500 rounded-full flex justify-center items-center py-2 px-8 text-white ml-2 font-bold fixed top-60 z-50">
-                    Winning proposal: {winningProposal.desc} with ID:{" "}
-                    {winningProposal.id}
+            {contractContext?.workflowStatus === 5 && (
+                <div className="bg-emerald-500 rounded-full flex justify-center items-center py-2 px-8 text-white ml-2 font-bold fixed top-60 z-50 animate-pulse">
+                    Winning proposal: "{winningProposal?.desc}"
                 </div>
             )}
         </>

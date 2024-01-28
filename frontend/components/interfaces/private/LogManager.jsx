@@ -105,8 +105,6 @@ const LogManager = () => {
                     )}
                 </ul>
             </div>
-
-            {/* If the step is 'Proposals Registration Started' */}
         </>
     );
 };

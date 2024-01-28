@@ -16,7 +16,7 @@ const Vote = ({
         const choice = formData.get("vote");
 
         try {
-            await setVote(choice);
+            await setVote(choice + 1);
             setHasVoted(true);
             _infoCallback(`Voter successfully voted for proposal: ${choice}`);
         } catch (error) {
