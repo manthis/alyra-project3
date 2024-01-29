@@ -52,14 +52,22 @@ Le contrat a été entièrement commenté en utilisant la norme Natspec.
 
 J'ai également créé une Github Action pour faire tourner Slither sur le code du Smart Contract. Vous pouvez consulter les résultats [ici](https://github.com/manthis/alyra-project3/actions/workflows/slither.yml). Je n'ai pas corrigé les problèmes remontés par ce dernier puisque nous n'avions pas le droit de modifier le contrat mais il faudrait sans doute s'en préoccuper.
 
+### Frontend
+
+Nous avons conçu une application Frontend pour manipuler le contract [Voting.sol](./backend/contracts/Voting.sol) créé par Alyra.
+
+Ci-dessous une capture d'écran de cette dernière.
+
+![image](./frontend/resources/screenshot.png)
+
 ### Stack technique de la solution
 
-- Backend:
+- **Backend**:
   - Solidity 0.8.20
   - Hardhat 2.19.4
-  - EthersJS 6.4.0
-- Fontend:
-  - NextJS 14.1.0
+  - Ethers 6.4.0
+- **Fontend**:
+  - Next 14.1.0
   - Wagmi 1.4.13
   - Viem 1.21.4
   - RainbowKit 1.3.3
