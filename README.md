@@ -48,7 +48,7 @@ Au lieu de chercher la proposition vainqueur dans la fonction TallyVotes, j'ai p
 
 La fonction TallyVotes a été conservée mais ne fait plus rien si ce n'est de changer l'étape du workflow et émettre un événement.
 
-Le contrat a été entièrement commenté en utilisant la norme Natspec.
+Le contrat [Voting.sol](./backend/contracts/Voting.sol) a été entièrement commenté en utilisant la norme Natspec.
 
 J'ai également créé une Github Action pour faire tourner Slither sur le code du Smart Contract. Vous pouvez consulter les résultats [ici](https://github.com/manthis/alyra-project3/actions/workflows/slither.yml). Je n'ai pas corrigé les problèmes remontés par ce dernier puisque nous n'avions pas le droit de modifier le contrat mais il faudrait sans doute s'en préoccuper.
 
@@ -75,7 +75,7 @@ Ci-dessous une capture d'écran de cette dernière.
 
 ### Lien vers la vidéo de démonstration
 
-Voici le lien vers la vidéo de démonstrationd de l'application:
+Voici le lien vers la vidéo de démonstration de l'application:
 
 ### Lien vers l'application
 
