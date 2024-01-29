@@ -74,7 +74,7 @@ function tallyVotes() external onlyOwner {
 
 Le contrat [Voting.sol](./backend/contracts/Voting.sol) a été entièrement commenté en utilisant la norme Natspec.
 
-![image](./frontend/resources/comments.png)
+![image](./resources/comments.png)
 
 #### 3. Slither
 
@@ -86,7 +86,7 @@ Nous avons conçu une application Frontend pour manipuler le contract [Voting.so
 
 Ci-dessous une capture d'écran de cette dernière.
 
-![image](./frontend/resources/screenshot.png)
+![image](./resources/screenshot.png)
 
 ### Stack technique de la solution
 
