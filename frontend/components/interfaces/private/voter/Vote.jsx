@@ -18,7 +18,7 @@ const Vote = ({
         const choice = formData.get("vote");
 
         try {
-            await setVote(Number(choice) + 1); // We add 1, indeed because of the GENESIS proposition all index are wrong when using logs
+            await setVote(Number(choice));
             setHasVoted(true);
             _infoCallback(`Voter successfully voted for proposal: ${choice}`);
         } catch (error) {
@@ -62,7 +62,7 @@ const Vote = ({
                             key={index}
                             name="vote"
                             id={"vote" + index}
-                            value={index}
+                            value={index + 1} // to match proposalId
                             className="accent-blue-600"
                         />
                         <label htmlFor={"vote" + index} className="ml-2">

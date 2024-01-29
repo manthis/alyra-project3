@@ -53,6 +53,9 @@ const LogManager = () => {
                                 proposalId,
                                 user?.data.address
                             );
+                            console.log(
+                                `proposalId: ${proposalId}, proposal: ${proposal}`
+                            );
 
                             return proposal;
                         })
