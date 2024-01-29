@@ -7,4 +7,3 @@ backend/.env
 frontend/.next
 frontend/.env.local
 frontend/.env.development
-.env*
