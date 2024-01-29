@@ -42,15 +42,43 @@ Le groupe de travail est constitué de **Maxime AUBURTIN**.
 
 ### Smart Contract
 
-La faille a été corrigé de la façon suivante:
+#### 1. Correction de la faille Gas DOS Limit
 
 Au lieu de chercher la proposition vainqueur dans la fonction TallyVotes, j'ai pris la décision de modifier la fonction setVote pour directement déterminer le vainqueur à cette étape. A chaque fois qu'il y a un nouveau vote, on le compare au gagnant. Si il est supérieur ou égal la proposition qui vient d'être votée remplace la proposition gagnante.
 
-La fonction TallyVotes a été conservée mais ne fait plus rien si ce n'est de changer l'étape du workflow et émettre un événement.
+```js
+function setVote( uint _id) external onlyVoters {
+    ... // Previous instructions
+
+    // We check if this newly voted proposition has more vote than the present
+    // winner and if that's the case we replace the winningProposalID
+    if (proposalsArray[_id].voteCount >= proposalsArray[winningProposalID].voteCount) {
+        winningProposalID = _id;
+    }
+
+    ... // Following instructions
+}
+```
+
+La fonction TallyVotes a été conservée mais ne fait plus rien si ce n'est de changer l'étape du workflow et émettre un événement _WorkflowStatusChange_:
+
+```js
+function tallyVotes() external onlyOwner {
+       require(workflowStatus == WorkflowStatus.VotingSessionEnded, "Current status is not voting session ended");       
+       workflowStatus = WorkflowStatus.VotesTallied;
+       emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, WorkflowStatus.VotesTallied);
+    }
+```
+
+#### 2. Natspec
 
 Le contrat [Voting.sol](./backend/contracts/Voting.sol) a été entièrement commenté en utilisant la norme Natspec.
 
-J'ai également créé une Github Action pour faire tourner Slither sur le code du Smart Contract. Vous pouvez consulter les résultats [ici](https://github.com/manthis/alyra-project3/actions/workflows/slither.yml). Je n'ai pas corrigé les problèmes remontés par ce dernier puisque nous n'avions pas le droit de modifier le contrat mais il faudrait sans doute s'en préoccuper.
+![image](./frontend/resources/comments.png)
+
+#### 3. Slither
+
+J'ai également créé une [Github Action](./.github/workflows/slither.yml) pour faire tourner Slither sur le code du Smart Contract. Vous pouvez consulter les résultats [ici](https://github.com/manthis/alyra-project3/actions/workflows/slither.yml). Je n'ai pas corrigé les problèmes remontés par ce dernier puisque nous n'avions pas le droit de modifier le contrat mais il faudrait sans doute s'en préoccuper.
 
 ### Frontend
 
