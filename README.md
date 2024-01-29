@@ -103,7 +103,7 @@ Ci-dessous une capture d'écran de cette dernière.
 
 ### Lien vers la vidéo de démonstration
 
-Voici le lien vers la vidéo de démonstration de l'application:
+Voici le lien vers la vidéo de démonstration de l'application: [Loom](https://www.loom.com/share/af5bf553e2814a11935c63d0515d8a33)
 
 ### Lien vers l'application
 
