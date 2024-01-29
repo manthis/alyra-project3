@@ -70,13 +70,13 @@ function tallyVotes() external onlyOwner {
     }
 ```
 
-#### 2. Natspec
+#### 3. Natspec
 
 Le contrat [Voting.sol](./backend/contracts/Voting.sol) a été entièrement commenté en utilisant la norme Natspec.
 
 ![image](./resources/comments.png)
 
-#### 3. Slither
+#### 4. Slither
 
 J'ai également créé une [Github Action](./.github/workflows/slither.yml) pour faire tourner Slither sur le code du Smart Contract. Vous pouvez consulter les résultats [ici](https://github.com/manthis/alyra-project3/actions/workflows/slither.yml). Je n'ai pas corrigé les problèmes remontés par ce dernier puisque nous n'avions pas le droit de modifier le contrat mais il faudrait sans doute s'en préoccuper.
 
