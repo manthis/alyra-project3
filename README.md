@@ -105,6 +105,8 @@ Ci-dessous une capture d'écran de cette dernière.
 
 Voici le lien vers la vidéo de démonstration de l'application: [Loom](https://www.loom.com/share/af5bf553e2814a11935c63d0515d8a33)
 
+La démonstration a été réalisée sur le réseau Hardhat de développement pour que l'application soit plus rapide et tenir dans les 5 minutes imparties.
+
 ### Lien vers l'application
 
 Le smart contract a été déployé sur Sepolia: [Etherscan](https://sepolia.etherscan.io/address/0x158E058d7351a1AF59A0E5b8cCcFdF78d6c5e266).
