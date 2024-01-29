@@ -44,7 +44,7 @@ Le groupe de travail est constitué de **Maxime AUBURTIN**.
 
 #### 1. Correction de la faille Gas DOS Limit
 
-Au lieu de chercher la proposition vainqueur dans la fonction TallyVotes, j'ai pris la décision de modifier la fonction setVote pour directement déterminer le vainqueur à cette étape. A chaque fois qu'il y a un nouveau vote, on le compare au gagnant. Si il est supérieur ou égal la proposition qui vient d'être votée remplace la proposition gagnante.
+Au lieu de chercher la proposition vainqueur dans la fonction TallyVotes, j'ai pris la décision de modifier la fonction setVote pour directement déterminer le vainqueur à cette étape. A chaque fois qu'il y a un nouveau vote, on le compare au gagnant. Si il est supérieur ou égal la proposition qui vient d'être votée remplace la proposition gagnante. Le choix du supérieur ou égal est bien sûr arbitraire car on aurait pu prendre un supérieur strict.
 
 ```js
 function setVote( uint _id) external onlyVoters {
@@ -82,7 +82,7 @@ J'ai également créé une [Github Action](./.github/workflows/slither.yml) pour
 
 ### Frontend
 
-Nous avons conçu une application Frontend pour manipuler le contract [Voting.sol](./backend/contracts/Voting.sol) créé par Alyra.
+J'ai conçu une application Frontend pour manipuler le contract [Voting.sol](./backend/contracts/Voting.sol) créé par Alyra.
 
 Ci-dessous une capture d'écran de cette dernière.
 
