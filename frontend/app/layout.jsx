@@ -8,7 +8,7 @@ import { publicProvider } from "wagmi/providers/public";
 import "./globals.css";
 
 const { chains, publicClient } = configureChains(
-    [hardhat, sepolia],
+    [sepolia, hardhat],
     [publicProvider()]
 );
 
