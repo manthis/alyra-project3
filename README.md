@@ -104,6 +104,7 @@ Ci-dessous une capture d'écran de cette dernière.
 ### Lien vers la vidéo de démonstration
 
 Voici le lien vers la vidéo de démonstration de l'application: [Loom](https://www.loom.com/share/af5bf553e2814a11935c63d0515d8a33)
+Ainsi qu'un petit erratum car j'ai fait un dernier changement et je voulais insister sur certains détails: [Erratum](https://www.loom.com/share/d77310c5421646b680e755b1ffeeef4b)
 
 La démonstration a été réalisée sur le réseau Hardhat de développement pour que l'application soit plus rapide et tenir dans les 5 minutes imparties.
 
