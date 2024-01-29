@@ -17,6 +17,11 @@ const Vote = ({
     const onSubmitVote = async (formData) => {
         const choice = formData.get("vote");
 
+        if (!choice) {
+            _errorCallback(new Error("Please select a vote"));
+            return;
+        }
+
         try {
             await setVote(Number(choice));
             setHasVoted(true);
