@@ -38,6 +38,7 @@ export default function Admin({
     ) => {
         try {
             await writeContractCallback(user?.data.address);
+            setContractContext({ workflowStatus: workflowStep + 1 });
             _infoCallback(
                 `Workflow step successfully moved from "${
                     WorkflowStatus[workflowStep]

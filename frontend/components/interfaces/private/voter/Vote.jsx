@@ -18,7 +18,7 @@ const Vote = ({
         const choice = formData.get("vote");
 
         if (!choice) {
-            _errorCallback(new Error("Please select a vote"));
+            _errorCallback(new Error("Please select a proposition"));
             return;
         }
 

@@ -4,8 +4,6 @@ import withAuthentication from "../../auth/withAuthentication";
 import { useAuthContext } from "../../contexts/AuthContext";
 import MessageBox from "../MessageBox";
 import LogManager from "./LogManager";
-import WinnerWatcher from "./WinnerWatcher";
-import WorkflowStatusWatcher from "./WorkflowStatusWatcher";
 import Admin from "./admin/Admin";
 import Voter from "./voter/Voter";
 
@@ -31,13 +29,6 @@ const PrivateSection = () => {
     return (
         <>
             {msg && <MessageBox message={msg} color={color} />}
-
-            <div className="border-2 border-slate-700 rounded-full flex flex-col justify-center items-center p-4 bg-fuchsia-700 w-[400px] h-[400px] mb-20">
-                <h1 className="text-xl font-bold m-4">Vote Status</h1>
-
-                <WorkflowStatusWatcher />
-                <WinnerWatcher />
-            </div>
 
             {user?.data.isOwner && contractContext?.workflowStatus !== 5 && (
                 <Admin

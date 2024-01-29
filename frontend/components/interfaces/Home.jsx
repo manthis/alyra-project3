@@ -1,6 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ContractContextProvider } from "../contexts/ContractContext";
 import PrivateSection from "./private/PrivateSection";
+import PublicSection from "./public/PublicSection";
 
 const Home = () => {
     return (
@@ -18,6 +19,7 @@ const Home = () => {
                     </div>
                 </div>
                 <section className="flex flex-col justify-center items-center p-4 w-2/5 min-w-[1000px] pt-20 text-white">
+                    <PublicSection />
                     <PrivateSection />
                 </section>
             </div>
